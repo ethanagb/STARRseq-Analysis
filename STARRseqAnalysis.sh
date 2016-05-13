@@ -7,7 +7,6 @@
 ##Modified: 13 may 2016
 #####################
 
-LOG_DIR="/project/fas/gerstein/eab232/starrseq/analysis/logs"
 GENOME_DIR="/project/fas/gerstein/eab232/starrseq/data/genomes/Drosphilia/dm3"
 GENOME_FASTA="dm3_forMapping" 
 STARRSEQ_DIR="/project/fas/gerstein/eab232/starrseq/data/raw"
@@ -18,8 +17,8 @@ BEDTOOLS_PATH="/home/fas/gerstein/eab232/software/bedtools2/bin"
 #BSUB -W 23:55
 #BSUB -J STARRseqAnalysis
 #BSUB -R "span[hosts=1]"
-#BSUB -e $LOG_DIR/%J.err
-#BSUB -o $LOG_DIR/%J.out
+#BSUB -e /project/fas/gerstein/eab232/starrseq/analysis/logs/%J.err
+#BSUB -o /project/fas/gerstein/eab232/starrseq/analysis/logs/%J.out
 
 module load Apps/Bowtie2
 
@@ -30,7 +29,7 @@ wget http://starklab.org/data/arnold_science_2013/S2_STARRseq_rep1_2.fastq.gz
 #wget http://starklab.org/data/arnold_science_2013/S2_STARRseq_rep2_1.fastq.gz
 #wget http://starklab.org/data/arnold_science_2013/S2_STARRseq_rep2_2.fastq.gz
 
-tar -xvzf S2_STARRseq_*.fastq.gz
+gunzip S2_STARRseq_*.fastq.gz
 
 #Build bowtie2 index of dm3 
 bowtie2-build -f $GENOME_DIR/$GENOME_FASTA.fa $GENOME_DIR
