@@ -16,7 +16,7 @@ BEDTOOLS_PATH="/home/fas/gerstein/eab232/software/bedtools2/bin"
 
 #BSUB -q shared
 #BSUB -W 23:55
-#BSUB -J Dm_bwt2
+#BSUB -J STARRseqAnalysis
 #BSUB -R "span[hosts=1]"
 #BSUB -e $LOG_DIR/%J.err
 #BSUB -o $LOG_DIR/%J.out
