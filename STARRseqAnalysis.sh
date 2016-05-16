@@ -51,5 +51,5 @@ sort -k 1,1 S2_STARRseq_rep1_Dmel_map.bed > S2_STARRseq_rep1_Dmel_map.sorted.bed
 $BEDTOOLS_PATH/bedtools genomecov -bg -trackline -i S2_STARRseq_rep1_Dmel_map.sorted.bed -g $GENOME_DIR/$GENOME_FASTA.fa.fai > S2_STARRseq_rep1_Dmel_map_Cov.bedgraph
 
 #MACS PeakCalling
-python $MACS_PATH/macs -t $ANALYSIS_DIR/S2_STARRseq_rep1_Dmel_map.bed --name S2_STARRseq_rep1  --gsize 120000000 --pvalue .00001
+python $MACS_PATH/macs -t $ANALYSIS_DIR/S2_STARRseq_rep1_Dmel_map.bed --name S2_STARRseq_rep1  --gsize 120000000 --pvalue .00001 --bw 500 --mfold 3
 
