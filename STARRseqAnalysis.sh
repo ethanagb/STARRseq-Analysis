@@ -13,6 +13,8 @@ STARRSEQ_DIR="/project/fas/gerstein/eab232/starrseq/data/raw"
 ANALYSIS_DIR="/project/fas/gerstein/eab232/starrseq/analysis"
 BEDTOOLS_PATH="/home/fas/gerstein/eab232/software/bedtools2/bin"
 MACS_PATH = "/home/fas/gerstein/eab232/software/MACS-1.3.7.1/bin"
+CONTROL_BED="/project/fas/gerstein/eab232/starrseq/analysis/inputData/S2_STARRseq_input_Dmel_map.sorted.bed"
+
 
 #BSUB -q shared
 #BSUB -W 23:55
@@ -51,5 +53,5 @@ sort -k 1,1 S2_STARRseq_rep1_Dmel_map.bed > S2_STARRseq_rep1_Dmel_map.sorted.bed
 $BEDTOOLS_PATH/bedtools genomecov -bg -trackline -i S2_STARRseq_rep1_Dmel_map.sorted.bed -g $GENOME_DIR/$GENOME_FASTA.fa.fai > S2_STARRseq_rep1_Dmel_map_Cov.bedgraph
 
 #MACS PeakCalling
-python $MACS_PATH/macs -t $ANALYSIS_DIR/S2_STARRseq_rep1_Dmel_map.bed --name S2_STARRseq_rep1  --gsize 120000000 --pvalue .00001 --bw 500 --mfold 3
+python $MACS_PATH/macs -t $ANALYSIS_DIR/S2_STARRseq_rep1_Dmel_map.bed -c $CONTROL_BED --name S2_STARRseq_rep1  --gsize 120000000 --pvalue .00001 --bw 500 --mfold 3 
 
