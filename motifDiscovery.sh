@@ -18,3 +18,6 @@ bedtools getfasta -fi $GENOME_DIR/$GENOME_FASTA.fa -bed $ANALYSIS_DIR/S2_STARRse
 
 #Use the MEME algorithm for motif discovery.
 $SOFTWARE_DIR/meme -dna -maxsize 7296745 $ANALYSIS_DIR/S2_STARRseq_rep1_vsControl_peaks.fa 
+
+#Motif GO info
+gomo --nostatus --verbosity 1 --oc . --t 0.05 --shuffle_scores 1000 --dag db/go.dag --motifs SelexConsensus1.1.meme db/insect_drosophila_melanogaster_1000_199.na.csv insect_drosophila_melanogaster_1000_199.na.cisml
