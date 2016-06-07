@@ -17,7 +17,7 @@ CONTROL_BED="/project/fas/gerstein/eab232/starrseq/analysis/inputData/S2_STARRse
 
 #BSUB -q shared
 #BSUB -W 23:55
-#BSUB -J mergebam
+#BSUB -J RNAexpr
 #BSUB -R "span[hosts=1]"
 #BSUB -e /project/fas/gerstein/eab232/starrseq/analysis/logs/%J.err
 #BSUB -o /project/fas/gerstein/eab232/starrseq/analysis/logs/%J.out
@@ -36,3 +36,6 @@ samtools view -Sb accepted_hitsAll.sam > accepted_hitsAll.bam
 $BEDTOOLS_PATH/bedtools bamtobed -i accepted_hitsAll.bam > accepted_hitsAll.bed 
 gzip accepted_hitsAll.sam
 
+#Build coverage profile
+sort -k 1,1 accepted_hitsAll.bed > accepted_hitsAll.sorted.bed 
+$BEDTOOLS_PATH/bedtools genomecov -bg -trackline -i accepted_hitsAll.sorted.bed -g $GENOME_DIR/$GENOME_FASTA.fa.fai > accepted_hits_Cov.bedgraph
