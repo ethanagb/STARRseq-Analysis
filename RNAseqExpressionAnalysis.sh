@@ -14,6 +14,7 @@ ANALYSIS_DIR="/project/fas/gerstein/eab232/starrseq/analysis/tophat_alignment"
 BEDTOOLS_PATH="/home/fas/gerstein/eab232/software/bedtools2/bin"
 MACS_PATH="/home/fas/gerstein/eab232/software/MACS-1.3.7.1/bin"
 CONTROL_BED="/project/fas/gerstein/eab232/starrseq/analysis/inputData/S2_STARRseq_input_Dmel_map.sorted.bed"
+CUFFLINKS_RESULTS="/project/fas/gerstein/eab232/starrseq/analysis/tophat_alignment/cufflinks"
 
 #BSUB -q shared
 #BSUB -W 23:55
@@ -32,10 +33,15 @@ samtools merge accepted_hitsAll.bam accepted_hits0.bam accepted_hits1.bam accept
 
 #Make BED files
 cd $ANALYSIS_DIR
-samtools view -Sb accepted_hitsAll.sam > accepted_hitsAll.bam 
+#samtools view -Sb accepted_hitsAll.sam > accepted_hitsAll.bam 
 $BEDTOOLS_PATH/bedtools bamtobed -i accepted_hitsAll.bam > accepted_hitsAll.bed 
-gzip accepted_hitsAll.sam
 
 #Build coverage profile
 sort -k 1,1 accepted_hitsAll.bed > accepted_hitsAll.sorted.bed 
 $BEDTOOLS_PATH/bedtools genomecov -bg -trackline -i accepted_hitsAll.sorted.bed -g $GENOME_DIR/$GENOME_FASTA.fa.fai > accepted_hits_Cov.bedgraph
+#gzip accepted_hitsAll.bam
+
+#Cufflinks
+module load Apps/Cufflinks
+awk '{print "chr"$0}' Drosophila_melanogaster.BDGP6.84.gtf  | sed 's/chrMT/chrM/g' > Drosophila_melanogaster.BDGP6.84.fortophat.gtf
+cufflinks -p 8 -o $CUFFLINKS_RESULTS -G $CUFFLINKS_RESULTS/Drosophila_melanogaster.BDGP6.84.fortophat.gtf $ANALYSIS_DIR/accepted_hitsAll.sort.sam
