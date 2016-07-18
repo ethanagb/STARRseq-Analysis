@@ -39,6 +39,7 @@ cat bednames.txt | while read x; do `$BEDTOOLS_PATH/coverageBed -a ../hg19_5kbWi
 module load Tools/SAMtools
 samtools sort H1.SCP1.WGscreenLib.R1.bam  >  H1.SCP1.WGscreenLib.R1.sorted.bam
 samtools index H1.SCP1.WGscreenLib.R1.sorted.bam
+$BEDTOOLS_PATH -g $GENOME_DIR/$GENOME_FASTA.fai -w 5000 > hg19_5kbWindows.bed
 samtools bedcov hg19_5kbWindows.bed H1.SCP1.WGscreenLib.R1.sorted.bam > H1.SCP1.WGscreenLib.R1_5kpWindowCov.bed
 
 #Process coverage bedfiles and make a simplified bedfile w/ FoldChange
@@ -50,5 +51,7 @@ cut -f 1,2,3,7 H1WG.SCP1.H1.R2_5kbWindowsVsControl_Calculations_top10.txt > H1WG
 #Merge adjacent bins. Calculate mean|min|max FoldChange
 $BEDTOOLS_PATH/bedtools merge -i H1WG.SCP1.H1.R1_5kbWindowsVsControl_Calculations_top10.bed -c 4 -o mean,min,max -delim "|" > H1WG.SCP1.H1.R1_5kbWindowsVsControl_Calculations_top10_merged.bed
 $BEDTOOLS_PATH/bedtools merge -i H1WG.SCP1.H1.R2_5kbWindowsVsControl_Calculations_top10.bed -c 4 -o mean,min,max -delim "|" > H1WG.SCP1.H1.R2_5kbWindowsVsControl_Calculations_top10_merged.bed
+cut -f 1,2,3,4 H1WG.SCP1.H1.R1_5kbWindowsVsControl_Calculations_top10_merged.bed > H1WG.SCP1.H1.R1_peaks.bed 
+cut -f 1,2,3,4 H1WG.SCP1.H1.R2_5kbWindowsVsControl_Calculations_top10_merged.bed > H1WG.SCP1.H1.R2_peaks.bed 
 
 
