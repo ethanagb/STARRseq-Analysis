@@ -43,5 +43,9 @@ $BEDTOOLS_PATH/bedtools genomecov -bg -trackline -i accepted_hitsAll.sorted.bed 
 
 #Cufflinks
 module load Apps/Cufflinks
+samtools sort -O bam -o $ANALYSIS_DIR/cufflinks/accepted_hitsAll.sort.bam $ANALYSIS_DIR/accepted_hitsAll.bam
+#fix ensembl naming scheme 
 awk '{print "chr"$0}' Drosophila_melanogaster.BDGP6.84.gtf  | sed 's/chrMT/chrM/g' > Drosophila_melanogaster.BDGP6.84.fortophat.gtf
-cufflinks -p 8 -o $CUFFLINKS_RESULTS -G $CUFFLINKS_RESULTS/Drosophila_melanogaster.BDGP6.84.fortophat.gtf $ANALYSIS_DIR/accepted_hitsAll.sort.sam
+cufflinks -p 8 -o $CUFFLINKS_RESULTS -G $CUFFLINKS_RESULTS/Drosophila_melanogaster.BDGP6.84.fortophat.gtf $ANALYSIS_DIR/accepted_hitsAll.sort.bam
+cuffquant -o $CUFFLINKS_RESULTS/cuffquant_out/ Drosophila_melanogaster.BDGP6.84.fortophat.gtf accepted_hitsAll.sort.bam 
+

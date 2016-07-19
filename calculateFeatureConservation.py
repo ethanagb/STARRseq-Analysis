@@ -22,8 +22,6 @@ for chromosome in chromNames:
 		featureSubset = x[x.start < chromSubset['end'][chromSubset.index[i]]]
 		x=None
 		featureConservation = float(sum(featureSubset.conserveScore)/(chromSubset['end'][chromSubset.index[i]]-chromSubset['start'][chromSubset.index[i]]))
-		#outfile.write(str(chromSubset['chrom'][i]) + '\t' + str(chromSubset['start'][i]) + '\t' + str(chromSubset['end'][i]) + '\t' + str(chromSubset['name'][i]) + '\t' + str(chromSubset['enrichmentVal'][i]) + '\t' + str(featureConservation) + '\n')
-		#peakDF['conservation'][i] = featureConservation
 		peakDF.set_value(chromSubset.index[i],'conservation',featureConservation)
 		featureSubset=None
 peakDF.to_csv("featureConservation.td", sep = '\t')

@@ -12,7 +12,7 @@ GENOME_FASTA="dm3_forMapping"
 STARRSEQ_DIR="/project/fas/gerstein/eab232/starrseq/data/raw"
 ANALYSIS_DIR="/project/fas/gerstein/eab232/starrseq/analysis"
 BEDTOOLS_PATH="/home/fas/gerstein/eab232/software/bedtools2/bin"
-MACS_PATH = "/home/fas/gerstein/eab232/software/MACS-1.3.7.1/bin"
+MACS_PATH="/home/fas/gerstein/eab232/software/MACS-1.3.7.1/bin"
 CONTROL_BED="/project/fas/gerstein/eab232/starrseq/analysis/inputData/S2_STARRseq_input_Dmel_map.sorted.bed"
 
 #BSUB -q shared
